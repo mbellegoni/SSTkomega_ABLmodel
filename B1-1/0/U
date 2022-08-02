@@ -1,0 +1,101 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+dimensions      [0 1 -1 0 0 0 0];
+
+#include "ABLConditions"
+
+internalField   uniform $ui;
+
+boundaryField
+{
+
+    outlet
+    {
+        type     inletOutlet;
+	inletValue   uniform (0 0 0);
+	value        $internalField;
+    }
+
+    sides
+    {
+        type		fixedValue;
+        value           uniform (0 0 0);
+    }
+
+
+    inlet
+    {
+        type            VelocityABL;
+        flowDir	       $flowDir;
+	ustar		$ustar;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             	$z0;
+        BW		$BW;
+        hABL		$hABL;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;
+    }   
+    
+    
+    ground
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    
+
+    top
+    {
+        type            VelocityABL;
+        flowDir	       $flowDir;
+	ustar		$ustar;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             	$z0;
+        BW		$BW;
+        hABL		$hABL;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;
+    }
+
+
+    buildings
+    {
+	type		fixedValue;
+        value           uniform (0 0 0);
+    }
+
+
+}
+
+
+// ************************************************************************* //

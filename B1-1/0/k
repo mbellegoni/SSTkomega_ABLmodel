@@ -1,0 +1,107 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      k;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+#include "ABLConditions"
+
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform $ki;
+
+boundaryField
+{
+    
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+
+
+    sides
+    {
+        type            kqRWallFunction;
+        value           $internalField;
+    }
+
+
+
+    inlet
+    {
+        type            kABL;
+        flowDir	       $flowDir;
+	ustar		$ustar;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             	$z0;
+        BW		$BW;
+        hABL		$hABL;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;
+    }
+   
+    ground
+    {
+        type            kqRWallFunction;
+        value           $internalField;
+    }
+
+
+   top
+   {
+        type            kABL;
+        flowDir	       $flowDir;
+	ustar		$ustar;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             	$z0;
+        BW		$BW;
+        hABL		$hABL;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;	
+    }
+
+
+
+
+
+    buildings
+    {
+        type            kqRWallFunction;
+        value           $internalField;
+    }
+
+
+
+
+  
+}
+
+
+// ************************************************************************* //
