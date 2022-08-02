@@ -1,0 +1,129 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include        "ABLConditions"
+
+dimensions      [0 2 -1 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    inlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+
+    top
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+
+    outlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+
+    sides
+    {
+        type            slip;
+    }
+
+    ground
+    {
+        type            nutRoughABLWallFunction;
+        z0              $z0;
+	betaStarMax 		uniform $betaStarMax;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform $roughWall;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+
+    building_half
+    {
+        type            nutRoughABLWallFunction;
+        z0              $z0;
+	betaStarMax 		uniform $betaStarMax;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform 0;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+
+    sources_half
+    {
+        type            nutRoughABLWallFunction;
+        z0              $z0;
+	betaStarMax 		uniform $betaStarMax;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform 0;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+	
+	symmetry
+	{
+		type			symmetry;
+	}
+
+}
+
+
+// ************************************************************************* //

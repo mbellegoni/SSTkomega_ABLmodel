@@ -1,0 +1,161 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      Omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+#include	"ABLConditions"
+
+dimensions      [0 0 -1 0 0 0 0];
+
+internalField   uniform $oi;
+
+boundaryField
+{
+    inlet
+    {
+        type            OmegaABL;
+        flowDir	       $flowDir;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             $z0;
+		BW			   $BW;
+		hABL		   $hABL;
+	ustar		$ustar;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;
+    }
+
+    top
+    {
+        type            OmegaABL;
+        flowDir	       $flowDir;
+        zDir            $zDir;
+        Uref            $Uref;
+        Zref            $Zref;
+	A	       $Atke;	
+	B	       $Btke;
+	C	       $Ctke;
+	D	       $Dtke;
+	E	       $Etke;
+        z0             $z0;
+		BW			   $BW;
+		hABL		   $hABL;
+	ustar		$ustar;
+	betaStarMax 		$betaStarMax;
+        value 	       $internalField;
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+    sides
+    {
+        type            slip;
+    }
+
+    ground
+    {
+        type            omegaRoughABL;
+        z0              $z0;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	betaStarMax	uniform	$betaStarMax;
+	WFbetaStar		uniform $WFbetaStar;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform $roughWall;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+
+    building_half
+    {
+        type            omegaRoughABL;
+        z0              $z0;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	betaStarMax	uniform	$betaStarMax;
+	WFbetaStar		uniform $WFbetaStar;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform 0;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+
+    sources_half
+    {
+        type            omegaRoughABL;
+        z0              $z0;
+	ustar		uniform $ustar;
+	kappaWF		uniform $kappaWF;
+	A		uniform $Atke;
+	B		uniform $Btke;
+	C		uniform $Ctke;
+	D		uniform $Dtke;
+	Etke		uniform $Etke;
+	betaStarMax	uniform $betaStarMax;
+	WFbetaStar		uniform $WFbetaStar;
+	blendCoeff	uniform $blendCoeff;
+	zDir		uniform $zDir;
+	roughWall	uniform 0;
+	thresholdU	uniform $thresholdU;
+	thresholdO	uniform $thresholdO;
+	thresholdK	uniform $thresholdK;
+	constantU	uniform $constantU;
+	constantO	uniform $constantO;
+	constantK	uniform $constantK;
+        value 	       $internalField;
+    }
+	
+	symmetry
+	{
+		type			symmetry;
+	}
+
+
+}
+
+
+// ************************************************************************* //

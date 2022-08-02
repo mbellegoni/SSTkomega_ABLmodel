@@ -1,0 +1,56 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+// Inlet Profiles
+flowDir	       (1 0 0);
+zDir            (0 0 1);
+Uref            6.0;
+Zref            0.4709;
+Atke	       0;	
+Btke	       0;
+Ctke	       0;
+Dtke	       0.5155;
+Etke	       -0.038;
+z0              0.0007;
+BW			   0;
+hABL		   100;
+
+// Wall Functions
+Cmu	0.09;
+WFbetaStar	0.09;
+kappa	0.41;
+kappaWF	0.41;
+Ew	9.8;
+blendCoeff	32;
+roughWall 1.0;
+thresholdU 0.05;
+thresholdO 0.05;
+thresholdK 0.3;
+constantU 1.0;
+constantO 10.0;
+constantK 3.0;
+
+// Initial conditions
+ui	($Uref 0 0);
+ki	0.5441;
+ei	0.2787;
+oi	7.464139;
+
+// k-Omega
+beta	    0.072;
+gamma	    0.52;
+alphaK	    0.5;
+alphaOmega  0.5;
+betaStarMax	0.15;
+ustar       0.373999;
+msel	(0 0 1);
+
+
+
+
+// ************************************************************************* //
